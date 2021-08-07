@@ -9,12 +9,16 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'status_id',
         'sport_field_id',
         'start_date',
         'end_date'
     ];
     public $timestamps = false;
+
+    public function sportField(){
+        return $this->hasOne(SportField::class, 'id', 'sport_field_id');
+    }
 }
 
