@@ -12,6 +12,16 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    /**
+     * Listing Page for Booking
+     */
+    public function showA()
+    {
+        $bookings = Booking::with('sportField')->get();
+        $sportLocation = SportsLocation::get();
+        return view('managebooking', compact('bookings', 'sportLocation'));
+    }
+
     public function update(Request $request, $id) {
         $booking = SportField::find($id);
         $booking->name = $request->name;
@@ -23,15 +33,9 @@ class BookingController extends Controller
         $bookings = SportField::with('sportLocation')->get();
         $sportsLocation = SportsLocation::get();
         return view('managebooking', ['message'=> 'Record Is Successfully Updated'], compact('bookings', 'sportsLocation'));
-    
+
     }
-    function showA()
-    {
-        $bookings = SportField::with('sportsLocation')->get();
-        $sportLocation = SportsLocation::get();
-        //dd($bookings);
-        return view('managebooking', compact('bookings', 'sportLocation'));
-    }
+
   /**
      * Remove the specified resource from storage.
      *
