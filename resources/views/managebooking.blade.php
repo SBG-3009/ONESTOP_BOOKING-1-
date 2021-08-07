@@ -179,7 +179,7 @@
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                            <th>Court ID</th>
+                                                            <th>Book ID</th>
                                                             <th>Court Name</th>
                                                             <th>Location</th>
                                                             <th>Price</th>
@@ -187,21 +187,19 @@
                                                             <th>End Time</th>
                                                             <th>Sport Type</th>
                                                             <th class="th-action">Actions</th>
-                                                </tr>
+                                            </tr>
                                             </thead>
-                                           
+
                                             <tbody>
                                                  @foreach($bookings as $booking)
                                                     <tr>
-                                                            <td>{{$booking['id']}}</td>
-                                                            <td>{{$booking['name']}}</td>
-                                                            <td>
-                                                               
-                                                            </td>
-                                                            <td>{{$booking['price']}}</td>
-                                                            <td>{{$booking['start_time']}}</td>
-                                                            <td>{{$booking['end_time']}}</td>
-                                                            <td>{{$booking['sport_types']}}</td>
+                                                            <td>{{$booking->id}}</td>
+                                                            <td>{{$booking->sportField->name}}</td>
+                                                            <td>{{$booking->sportField->sportsLocation->name}}</td>
+                                                            <td>{{$booking->sportField->price}}</td>
+                                                            <td>{{$booking->start_date}}</td>
+                                                            <td>{{$booking->end_date}}</td>
+                                                            <td>{{$booking->sportField->sportsLocation->sport_types}}</td>
                                                             <?php
                                                                 $startTime = date('c',strtotime($booking->start_time));
                                                                 $startTime = substr($startTime, 0, -9);

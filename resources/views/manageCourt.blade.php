@@ -197,7 +197,7 @@
                                                         <td>{{ $row->id }}</td>
                                                         <td>{{ $row->name }}</td>
                                                         <td>{{ $row->description }}</td>
-                                                        <td>{{ $row->sport_location_id }}</td>
+                                                        <td>{{ $row->sportsLocation->name }}</td>
                                                             <?php
                                                                 $startTime = date('c',strtotime($row->start_time));
                                                                 $startTime = substr($startTime, 0, -9);
