@@ -14,7 +14,7 @@ use App\Http\Controllers\BookingController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('homeA');
 });
 
 
@@ -41,4 +41,15 @@ Route::delete('/destroy/{id}', [App\Http\Controllers\HomeController::class, 'des
 
 Route::resource('court', App\Http\Controllers\CourtController::class);
 
-Route::get('/managebooking', [BookingController::class,'show']);
+Route::get('/managebooking', [BookingController::class,'showA']); 
+
+Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);
+
+Route::delete('/destroy/{id}', [App\Http\Controllers\BookingController::class, 'destory']);
+
+Auth::routes();
+
+Route::get('/homeA', [App\Http\Controllers\HomeController::class, 'index'])->name('homeA');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'admin'])->name('home');
+
