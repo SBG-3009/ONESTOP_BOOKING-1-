@@ -284,7 +284,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                   <form id="editForm" method="POST" action="/managebooking/1">
+                   <form id="editForm" method="POST" action="/booking/1">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Update Court</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -296,7 +296,7 @@
                             <label for="exampleInputEmail1">Court Locations</label>
                             <select name="sport_location_id" id="editSportLocationId" class="custom-select" required>
                             <option value="">Select Court Locations</option>
-                                 @foreach($sportLocation as $row)
+                                 @foreach($sportsLocation as $row)
                                     <option value="{{$row->id}}"> {{$row->name}} </option>
                                 @endforeach
                             </select>
@@ -388,7 +388,7 @@
         $('.edit-button').click(function(){
             var info = $(this).data('info');
             editId = info.id;
-            document.getElementById('editForm').action = '/managebooking/'+ editId;
+            document.getElementById('editForm').action = '/booking/'+ editId;
             var startTime = $(this).data('start-time');
             var endTime = $(this).data('end-time');
             $('#editSportLocationId').val(info.sport_location_id);
@@ -418,7 +418,7 @@
         $('.btn-danger').click(function(){
             var info = $(this).data('info');
             $('#removeMessage').html(''+ info.name);
-            document.getElementById('deleteForm').action = '/managebooking/'+ info.id;
+            document.getElementById('deleteForm').action = '/booking/'+ info.id;
         });
     });
 </script>

@@ -18,12 +18,14 @@ class BookingController extends Controller
     public function showA()
     {
         $bookings = Booking::with('sportField')->get();
-        $sportLocation = SportsLocation::get();
-        return view('managebooking', compact('bookings', 'sportLocation'));
+        $sportsLocation = SportsLocation::get();
+        return view('managebooking', compact('bookings', 'sportsLocation'));
     }
-
+    
+    
     public function update(Request $request, $id) {
         $booking = SportField::find($id);
+        //dd($request);
         $booking->name = $request->name;
         $booking->price = $request->price;
         $booking->start_time = $request->start_time;
@@ -31,7 +33,7 @@ class BookingController extends Controller
         $booking->sport_location_id = $request->sport_location_id;
         $booking->save();
         $bookings = SportField::with('sportLocation')->get();
-        $sportsLocation = SportsLocation::get();
+        $sportsLocation = SportLocation::get();
         return view('managebooking', ['message'=> 'Record Is Successfully Updated'], compact('bookings', 'sportsLocation'));
 
     }
@@ -45,7 +47,7 @@ class BookingController extends Controller
     public function destroy($id)
     {
         Booking::destroy($id);
-        $bookings = SportField::with('sportsLocation')->get();
+        $bookings = Booking::with('sportField')->get();
         $sportsLocation = SportsLocation::get();
         return view('managebooking', ['message'=> 'Record Is Deleted'], compact('bookings', 'sportsLocation'));
     }
