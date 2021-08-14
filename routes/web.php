@@ -41,9 +41,11 @@ Route::delete('/destroy/{id}', [App\Http\Controllers\HomeController::class, 'des
 
 Route::resource('court', App\Http\Controllers\CourtController::class);
 
-Route::get('/managebooking', [BookingController::class,'showA']); 
+Route::resource('booking', App\Http\Controllers\BookingController::class);
 
-Route::get('/show/{id}', [App\Http\Controllers\HBookingController::class, 'show']);
+Route::get('/managebooking', [BookingController::class,'showA']);
+
+Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);
 
 Auth::routes();
 

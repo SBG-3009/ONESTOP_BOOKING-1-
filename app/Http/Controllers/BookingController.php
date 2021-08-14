@@ -2,41 +2,97 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\BookingStatus;
 use App\Models\Transaction;
 use App\Models\BookStatus;
 use App\Models\SportField;
 use App\Models\SportsLocation;
-use Illuminate\Http\Request;
+
 
 class BookingController extends Controller
 {
     /**
-     * Listing Page for Booking
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function showA()
+    public function index()
     {
+        //
         $bookings = Booking::with('sportField')->get();
-        $sportLocation = SportsLocation::get();
-        return view('managebooking', compact('bookings', 'sportLocation'));
+        $sportFields = SportField::get();
+        // dd($bookings);
+        return view('managebooking', compact('bookings', 'sportFields'));
     }
 
-    public function update(Request $request, $id) {
-        $booking = SportField::find($id);
-        $booking->name = $request->name;
-        $booking->price = $request->price;
-        $booking->start_time = $request->start_time;
-        $booking->end_time = $request->end_time;
-        $booking->sport_location_id = $request->sport_location_id;
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $booking = Booking::find($id);
+        $booking->status_id = 2;
+        $booking->start_date = $request->start_date;
+        $booking->end_date = $request->end_date;
+        $booking->sport_field_id = $request->sport_field_id;
         $booking->save();
-        $bookings = SportField::with('sportLocation')->get();
-        $sportsLocation = SportsLocation::get();
-        return view('managebooking', ['message'=> 'Record Is Successfully Updated'], compact('bookings', 'sportsLocation'));
 
+        $bookings = Booking::with('sportField')->get();
+        $sportFields = SportField::get();
+        return view('managebooking', ['message'=> 'Record Is Successfully Updated'], compact('bookings', 'sportFields'));
     }
 
-  /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -44,9 +100,11 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
+        //
         Booking::destroy($id);
-        $bookings = SportField::with('sportsLocation')->get();
-        $sportsLocation = SportsLocation::get();
-        return view('manageCourt', ['message'=> 'Record Is Deleted'], compact('bookings', 'sportsLocation'));
+
+        $bookings = Booking::with('sportField')->get();
+        $sportFields = SportField::get();
+        return view('managebooking', ['message'=> 'Record Is Deleted'], compact('bookings', 'sportFields'));
     }
 }

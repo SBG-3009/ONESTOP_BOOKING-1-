@@ -284,47 +284,36 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                   <form id="editForm" method="POST" action="/court/1">
+                   <form id="editForm" method="POST" action="/booking/1">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Court</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Update Booking</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div id="test"></div>
                             <div class="form-group">
                             <label for="exampleInputEmail1">Court Locations</label>
-                            <select name="sport_location_id" id="editSportLocationId" class="custom-select" required>
-                                <option value="">Select Court Locations</option>
+                            <select name="sport_field_id"  id="editSportFieldId" class="custom-select" required>
+                                <option value="">Select Sport Field</option>
+                                 @foreach($sportFields as $row)
+                                    <option value="{{$row->id}}"> {{$row->name}} </option>
+                                @endforeach
                             </select>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-
                               <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type = "hidden" id="updateId" name="id">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="editName" aria-describedby="nameHelp" placeholder="Enter Name">
-                            <small id="nameHelp" class="form-text text-muted">Court Name</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Descriptions</label>
-                            <input type="text" class="form-control" name="description" id="editDescription" placeholder="Descriptions">
-                        </div>
-                       <div class="form-group">
-                            <label for="price">Price Hourly</label>
-                            <input type="text" class="form-control" name="price" id="editPrice" placeholder="Descriptions">
-                        </div>
-                        <div class="form-group">
-                            <label for="editStartime">Start Time</label>
-                            <input type="datetime-local" class="form-control" name="start_time" id="editStartTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="editEndtime">End Time</label>
-                            <input type="datetime-local" class="form-control" name="end_time" id="editEndTime">
+                            <input type = "text" id="updateId" name="id">
                         </div>
 
+                        <div class="form-group">
+                            <label for="editStartime">Start Date</label>
+                            <input type="datetime-local" class="form-control" name="start_date" id="editStartDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="editEndtime">End Date</label>
+                            <input type="datetime-local" class="form-control" name="end_date" id="editEndDate">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Back</button>
@@ -348,9 +337,9 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Are You Sure You Want To Remove Court <div id="removeMessage"></div></div>
+                <div class="modal-body">Are You Sure You Want To Remove Booking <div id="removeMessage"></div></div>
                 <div class="modal-footer">
-                    <form id="deleteForm" method="POST" action="/court/1">
+                    <form id="deleteForm" method="POST" action="/booking/1">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="delete">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Back</button>
@@ -385,15 +374,13 @@
         $('.edit-button').click(function(){
             var info = $(this).data('info');
             editId = info.id;
-            document.getElementById('editForm').action = '/court/'+ editId;
-            var startTime = $(this).data('start-time');
-            var endTime = $(this).data('end-time');
-            $('#editSportLocationId').val(info.sport_location_id);
-            $('#editName').val(info.name);
-            $('#editDescription').val(info.description);
-            $('#editPrice').val(info.price);
-            $('#editStartTime').val(startTime);
-            $('#editEndTime').val(endTime);
+            document.getElementById('editForm').action = '/booking/'+ editId;
+            var startDate = $(this).data('start-time');
+            var endDate = $(this).data('end-time');
+            $('#editSportFieldId').val(info.sport_field_id);
+            $('#updateId').val(editId);
+            $('#editStartDate').val(startDate);
+            $('#editEndDate').val(endDate);
         });
 
         $('#editStartTime').on('event',function(){
@@ -418,8 +405,8 @@
 
         $('.btn-danger').click(function(){
             var info = $(this).data('info');
-            $('#removeMessage').html(''+ info.name);
-            document.getElementById('deleteForm').action = '/court/'+ info.id;
+            $('#removeMessage').html(''+ info.id);
+            document.getElementById('deleteForm').action = '/booking/'+ info.id;
         });
     });
 </script>
