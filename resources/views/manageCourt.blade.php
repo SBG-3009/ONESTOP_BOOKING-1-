@@ -19,7 +19,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+    <style>
+        .th-action{
+            width: 160px;
+        }
+        </style>
 </head>
 
 <body id="page-top">
@@ -179,7 +183,8 @@
                                                     <th>Name</th>
                                                     <th>Description</th>
                                                     <th>Location</th>
-                                                    <th>Actions</th>
+                                                    <th>Sport Type</th>
+                                                    <th class="th-action">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -188,7 +193,10 @@
                                                     <th>Name</th>
                                                     <th>Description</th>
                                                     <th>Location</th>
+                                                    <th>Sport Type</th>
                                                     <th>Actions</th>
+                                                    
+                                                    
                                                 </tr>
                                             </tfoot>
                                             <tbody>
@@ -197,7 +205,8 @@
                                                         <td>{{ $row->id }}</td>
                                                         <td>{{ $row->name }}</td>
                                                         <td>{{ $row->description }}</td>
-                                                        <td>{{ $row->sport_location_id }}</td>
+                                                        <td>{{ $row->sportsLocation->name }}</td>
+                                                        <td>{{ $row->sportsLocation->sport_types }}</td>
                                                             <?php
                                                                 $startTime = date('c',strtotime($row->start_time));
                                                                 $startTime = substr($startTime, 0, -9);
@@ -321,19 +330,21 @@
                             <label for="description">Description</label>
                             <input type="text" class="form-control" name="description" id="description" placeholder="Descriptions">
                         </div>
+                        <div class="form-group">
+                            <label for="sporttype">Sport Type</label>
+                            <select name="sport_types" class="custom-select" required>
+                                <option value="">Sport Type</option>
+                                 @foreach($sportsLocation as $row)
+                                    <option value="{{$row->id}}"> {{$row->sport_types}} </option>
+                                @endforeach
+                            </select>
+                            
+                        </div>
                        <div class="form-group">
                             <label for="price">Price</label>
                             <input type="text" class="form-control" name="price" id="price" placeholder="Enter a Price">
                         </div>
-                        <div class="form-group">
-                            <label for="startTime">Start Time</label>
-                            <input type="datetime-local" class="form-control" name="start_time" id="startTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="endTime">End Time</label>
-                            <input type="datetime-local" class="form-control" name="end_time" id="endTime">
-                        </div>
-
+                       
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Back</button>
@@ -365,7 +376,6 @@
                                     <option value="{{$row->id}}"> {{$row->name}} </option>
                                 @endforeach
                             </select>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 
                               <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -380,18 +390,12 @@
                             <label for="description">Descriptions</label>
                             <input type="text" class="form-control" name="description" id="editDescription" placeholder="Descriptions">
                         </div>
+                        
                        <div class="form-group">
                             <label for="price">Price Hourly</label>
                             <input type="text" class="form-control" name="price" id="editPrice" placeholder="Descriptions">
                         </div>
-                        <div class="form-group">
-                            <label for="editStartime">Start Time</label>
-                            <input type="datetime-local" class="form-control" name="start_time" id="editStartTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="editEndtime">End Time</label>
-                            <input type="datetime-local" class="form-control" name="end_time" id="editEndTime">
-                        </div>
+                       
 
                     </div>
                     <div class="modal-footer">
@@ -427,6 +431,10 @@
                         <div class="form-group">
                             <label for="description">Descriptions</label>
                             <div id="viewDescription" class="form-control bg-light" ></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sporttype">Sport Type</label>
+                            <div id="viewSportType" class="form-control bg-light" ></div>
                         </div>
                        <div class="form-group">
                             <label for="priceHourly">Price Hourly</label>
@@ -508,18 +516,17 @@
             $('#editStartTime').val(startTime);
             $('#editEndTime').val(endTime);
         });
-
+        
         $('#editStartTime').on('event',function(){
                 var value = $(this).val();
                 console.log(value)
-
         });
-
         $('.view-button').click(function(){
             var info = $(this).data('info');
             editId = info.id;
             var startTime = $(this).data('start-time');
             var endTime = $(this).data('end-time');
+            $('#viewSportType').html(info.sport_types);
             $('#viewSportLocationId').html(info.sports_location_id);
             $('#viewSportLocation').html(info.sports_location.name);
             $('#viewName').html(info.name);
@@ -528,7 +535,6 @@
             $('#viewStartTime').html(startTime);
             $('#viewEndTime').html(endTime);
         });
-
         $('.btn-danger').click(function(){
             var info = $(this).data('info');
             $('#removeMessage').html(''+ info.name);

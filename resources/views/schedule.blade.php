@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
+
+
   <head>
     <meta charset='utf-8' />
     <link href="{{ asset('fullcalendar-scheduler/lib/main.css')}}" rel='stylesheet'/>
@@ -38,19 +40,25 @@
     
     resources: 
     newResources,
+    dateClick: function(info) {
+      alert('selected ' + info.dateStr + ' on resource ' + info.resource.id + 'name'+ info.resource.title);
+    },
 
+    resources: 
+    newResources,
     dateClick: function(info) {
       alert('clicked ' + info.dateStr + ' on resource ' + info.resource.id + 'name'+ info.resource.title);
     },
     select: function(info) {
       $('#title').html(info.resource.title);
+      $('#user').val(info.user);
       $('#type').val(type);
       $('#sportFieldId').val(info.resource.id);
       $('#startTime').val(info.startStr);
       $('#endTime').val(info.endStr);
       $('#name').val(info.resource.title);
-      $('#startTime').val('2021-06-22 17:00:00');
-      $('#endTime').val('2021-06-22 18:00:00');
+      $('#startTime').val(info.startStr);
+      $('#endTime').val(info.endStr);
       $("#exampleModal").modal('show');
      alert('selected ' + info.startStr + ' to ' + info.endStr + ' on resource ' + info.resource.id+ 'name'+ info.resource.title);
     }
@@ -58,7 +66,6 @@
   
   calendar.render();
 });
-
     </script>
   </head>
   <body>
@@ -68,7 +75,7 @@
 </div>
 @endif
 <form action = "/scheduleA" method = "post">
-      <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+      <br><p><input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 <select name="id" class="form-select" aria-label="Default select example">
   <option selected>Open this select menu</option>
  @if(count($dropdown) > 0)
@@ -89,7 +96,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Booking Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -99,7 +106,11 @@
       <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
       <table>
       <tr>
-      <td>Name</td>
+      <td>User</td>
+      <td><input id="user" type='text' name='users_id' /></td>
+      </tr>
+      <tr>
+      <td>Court</td>
       <td><input id="name" type='text' name='name' /></td>
       </tr>
       <tr>

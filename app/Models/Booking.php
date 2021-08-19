@@ -9,12 +9,29 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'bookings';
+
+    protected $fillable = [
+        'user',
         'status_id',
         'sport_field_id',
         'start_date',
-        'end_date'
+        'end_date',
+        'users_id'
+
     ];
     public $timestamps = false;
-}
 
+    public function sportField(){
+        return $this->hasOne(SportField::class, 'id', 'sport_field_id');
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::class, 'id', 'users_id');
+    }
+}

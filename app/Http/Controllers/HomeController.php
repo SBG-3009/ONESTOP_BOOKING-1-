@@ -61,7 +61,7 @@ class HomeController extends Controller
 
     public function futsal() {
         $dropdown = SportsLocation::where('sport_types', 'Futsal')->get();
-        $resources = SportField::where('sport_location_id', 1)->get();
+        $resources = SportField::where('sport_location_id', 2)->get();
         return view('schedule', ['resources'=> $resources],['type'=> 'Futsal'])->with('dropdown', $dropdown);
     }
 

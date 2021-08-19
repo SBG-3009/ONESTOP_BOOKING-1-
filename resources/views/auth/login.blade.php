@@ -59,7 +59,7 @@
                             </div>
                         </div>   
                         <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="register">Create an Account!</a>
                                     </div>                    
                     </form>
     <!-- Bootstrap core JavaScript-->
@@ -75,9 +75,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+              
 
-            </div>
+            
         </div>
     </div>
 </div>

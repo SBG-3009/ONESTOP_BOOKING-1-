@@ -53,7 +53,7 @@ class CourtController extends Controller
         $court->end_time = $request->end_time;
         $court->sport_location_id = $request->sport_location_id;
         $court->save();
-        $courts = SportField::with('sportLocation')->get();
+        $courts = SportField::with('sportsLocation')->get();
         $sportsLocation = SportsLocation::get();
    
         return view('manageCourt', ['message'=> 'Record Is Successfully Updated '], compact('courts', 'sportsLocation'));
