@@ -43,9 +43,9 @@ Route::resource('court', App\Http\Controllers\CourtController::class);
 
 Route::resource('booking', App\Http\Controllers\BookingController::class);
 
-Route::get('/managebooking', [BookingController::class,'index']);
+Route::get('/managebooking', [BookingController::class,'showA']);
 
-//Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);
+Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);
 
 Auth::routes();
 
@@ -53,4 +53,3 @@ Route::get('/homeA', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'admin'])->name('home');
 
-Route::get('/search', [App\Http\Controllers\BookingController::class, 'search'])->name('search');

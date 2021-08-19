@@ -18,24 +18,6 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->input('search');
-    
-        // Search in the title and body columns from the posts table
-        $bookings = Booking::query()
-            ->where('id', 'LIKE', "%{$search}%")
-            
-            ->get();
-    
-        // Return the search view with the resluts compacted
-        return view('managebooking', compact('bookings'));
-    }
-
-
-
-
     public function index()
     {
         //
@@ -99,7 +81,6 @@ class BookingController extends Controller
     {
         //
         $booking = Booking::find($id);
-        $booking->user = $request->user;
         $booking->status_id = 2;
         $booking->start_date = $request->start_date;
         $booking->end_date = $request->end_date;

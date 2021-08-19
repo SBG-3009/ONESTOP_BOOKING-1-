@@ -17,21 +17,15 @@ class Booking extends Model
     protected $table = 'bookings';
 
     protected $fillable = [
-        'user',
         'status_id',
         'sport_field_id',
         'start_date',
-        'end_date',
-        'users_id'
-
+        'end_date'
     ];
     public $timestamps = false;
 
     public function sportField(){
         return $this->hasOne(SportField::class, 'id', 'sport_field_id');
     }
-
-    public function getUser(){
-        return $this->hasOne(User::class, 'id', 'users_id');
-    }
 }
+
