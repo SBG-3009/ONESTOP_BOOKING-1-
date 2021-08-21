@@ -9,8 +9,17 @@
     <link rel="stylesheet" href="{{asset('bootstrap-4.0.0/dist/css/bootstrap.min.css')}}"/>
     <script src="{{ asset('fullcalendar-scheduler/lib/main.min.js')}}"></script>
     <script src="{{ asset('bootstrap-4.0.0/dist/js/bootstrap.min.js')}}"></script>
+<<<<<<< Updated upstream
 
 
+=======
+    
+    <style>
+      body{
+        background: #eee;
+      }
+      </style>
+>>>>>>> Stashed changes
         <script>
         <?php
     $resources = isset($resources) ? $resources : [];

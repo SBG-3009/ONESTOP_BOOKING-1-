@@ -132,11 +132,10 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                {{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a> --}}
-                                @include('globals.logout')
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                                </a>
                             </div>
                         </li>
 
@@ -181,7 +180,6 @@
                                             <thead>
                                                 <tr>
                                                             <th>Book ID</th>
-                                                            <th>User Name</th>
                                                             <th>Court Name</th>
                                                             <th>Location</th>
                                                             <th>Price</th>
@@ -196,7 +194,6 @@
                                                  @foreach($bookings as $booking)
                                                     <tr>
                                                             <td>{{$booking->id}}</td>
-                                                            <td>{{$booking->getUser->name}}</td>
                                                             <td>{{$booking->sportField->name}}</td>
                                                             <td>{{$booking->sportField->sportsLocation->name}}</td>
                                                             <td>{{$booking->sportField->price}}</td>
@@ -210,22 +207,7 @@
                                                                 $endTime = substr($endTime, 0, -9);
                                                             ?>
                                                         <td>
-                                                             <a data-info="{{$booking}}"
-                                                             data-id="{{$booking->id}}"
-                                                             data-start-time="{{$startTime}}"
-                                                             data-end-time="{{$endTime}}"
-                                                             data-toggle="modal"
-                                                             data-target="#editBooking"
-                                                             class="btn btn-info btn-circle edit-button">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                            <a
-                                                             data-info="{{$booking}}"
-                                                             data-toggle="modal"
-                                                             data-target="#deleteCourt"
-                                                             class="btn btn-danger btn-circle">
-                                                                <i class="fas fa-trash"></i>
-                                                            </a>
+                                                             
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -281,79 +263,6 @@
             </div>
         </div>
     </div>
-
-     <!-- Update Modal-->
-    <div class="modal fade" id="editBooking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                   <form id="editForm" method="POST" action="/booking/1">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Booking</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="test"></div>
-                            <div class="form-group">
-                            <label for="exampleInputEmail1">Court Locations</label>
-                            <select name="sport_field_id"  id="editSportFieldId" class="custom-select" required>
-                                <option value="">Select Sport Field</option>
-                                 @foreach($sportFields as $row)
-                                    <option value="{{$row->id}}"> {{$row->name}} </option>
-                                @endforeach
-                            </select>
-                              <input type="hidden" name="_method" value="PUT">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type = "text" id="updateId" name="id">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editStartime">Start Date</label>
-                            <input type="datetime-local" class="form-control" name="start_date" id="editStartDate">
-                        </div>
-                        <div class="form-group">
-                            <label for="editEndtime">End Date</label>
-                            <input type="datetime-local" class="form-control" name="end_date" id="editEndDate">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Back</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                 </form>
-            </div>
-        </div>
-    </div>
-
-
-
-      <!-- Delete Modal-->
-    <div class="modal fade" id="deleteCourt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Remove Court</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are You Sure You Want To Remove Booking <div id="removeMessage"></div></div>
-                <div class="modal-footer">
-                    <form id="deleteForm" method="POST" action="/booking/1">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="_method" value="delete">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Back</button>
-                    <button type="submit" id="deleteButton" class="btn btn-primary delete-button">Remove</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -374,24 +283,7 @@
 <script>
     $(document).ready(function(){
         var editId = '';
-        $('.edit-button').click(function(){
-            var info = $(this).data('info');
-            editId = info.id;
-            document.getElementById('editForm').action = '/booking/'+ editId;
-            var startDate = $(this).data('start-time');
-            var endDate = $(this).data('end-time');
-            $('#editSportFieldId').val(info.sport_field_id);
-            $('#updateId').val(editId);
-            $('#editStartDate').val(startDate);
-            $('#editEndDate').val(endDate);
-        });
-
-        $('#editStartTime').on('event',function(){
-                var value = $(this).val();
-                console.log(value)
-
-        });
-
+        
         $('.view-button').click(function(){
             var info = $(this).data('info');
             editId = info.id;
@@ -406,12 +298,6 @@
             $('#viewEndTime').html(endTime);
         });
 
-        $('.btn-danger').click(function(){
-            var info = $(this).data('info');
-            $('#removeMessage').html(''+ info.id);
-            document.getElementById('deleteForm').action = '/booking/'+ info.id;
-        });
-    });
 </script>
 </body>
 

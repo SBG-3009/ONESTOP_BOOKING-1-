@@ -27,5 +27,8 @@ class Booking extends Model
     public function sportField(){
         return $this->hasOne(SportField::class, 'id', 'sport_field_id');
     }
+    public function getUser(){
+        return $this->hasOne(User::class, 'id', 'users_id');
+    }
 }
 

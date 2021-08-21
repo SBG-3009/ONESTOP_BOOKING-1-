@@ -18,5 +18,7 @@ class SportsLocation extends Model
     public function sportLocation() {
         return $this->hasOne(SportLocation::class, 'id', 'sport_location_id');
     }
-    
+    public function getUser() {
+        return $this->hasOne(Booking::class, 'id', 'users_id');
+    }
 }

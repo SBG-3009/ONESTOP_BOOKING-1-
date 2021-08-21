@@ -78,4 +78,10 @@ class HomeController extends Controller
         return view('admin');
     }
 
+    public function customerDashboard(){
+        $bookings = Booking::where('users_id',auth()->id())->with('sportField')->get();
+        $sportFields = SportField::get();
+        // dd($bookings);
+        return view('managebooking-customer', compact('bookings', 'sportFields'));
+    }
 }

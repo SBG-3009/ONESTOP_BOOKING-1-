@@ -53,3 +53,5 @@ Route::get('/homeA', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'admin'])->name('home');
 
+Route::get('/managebooking-customer', [App\Http\Controllers\HomeController::class,'customerDashboard']);
+

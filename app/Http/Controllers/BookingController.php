@@ -18,7 +18,7 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showA()
     {
         //
         $bookings = Booking::with('sportField')->get();

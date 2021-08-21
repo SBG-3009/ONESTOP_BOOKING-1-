@@ -30,6 +30,7 @@
                         </a></li>
                         <li class="nav-item"><a class="nav-link" href="#Contactus">Contact</a></li>
                         <li class="nav-item"><a class="nav-link" href="/login">Admin</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">User Login</a></li>
                     </ul>
                 </div>
             </div>
