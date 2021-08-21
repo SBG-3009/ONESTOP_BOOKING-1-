@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{{asset('bootstrap-4.0.0/dist/css/bootstrap.min.css')}}"/>
     <script src="{{ asset('fullcalendar-scheduler/lib/main.min.js')}}"></script>
     <script src="{{ asset('bootstrap-4.0.0/dist/js/bootstrap.min.js')}}"></script>
-    
-    
+
+
         <script>
         <?php
     $resources = isset($resources) ? $resources : [];
@@ -28,7 +28,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          
+
     selectable: true,
     initialView: 'resourceTimelineWeek',
     headerToolbar: {
@@ -36,15 +36,15 @@
       center: 'title',
       right: 'resourceTimelineWeek,timeGridDay'
     },
-    
-    
-    resources: 
+
+
+    resources:
     newResources,
     dateClick: function(info) {
       alert('selected ' + info.dateStr + ' on resource ' + info.resource.id + 'name'+ info.resource.title);
     },
 
-    resources: 
+    resources:
     newResources,
     dateClick: function(info) {
       alert('clicked ' + info.dateStr + ' on resource ' + info.resource.id + 'name'+ info.resource.title);
@@ -63,7 +63,7 @@
      alert('selected ' + info.startStr + ' to ' + info.endStr + ' on resource ' + info.resource.id+ 'name'+ info.resource.title);
     }
   });
-  
+
   calendar.render();
 });
     </script>
@@ -82,14 +82,14 @@
     @foreach($dropdown as $row)
     <option value="{{$row->id}}"> {{$row->name}}</option>
      @endforeach
- @endif 
+ @endif
 </select>
 <input name="type" type ='text' value = "{{$type}}"/>
 <input type = 'submit' value = "Select Location"/>
 </form>
     <div id='calendar'></div>
-   
-   
+
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <form action = "/schedule/store" method = "post">
@@ -102,13 +102,9 @@
         </button>
       </div>
       <div class="modal-body">
-      
       <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+      <input type= "hidden" name='users_id' value = "<?php echo Auth::user()->id ?>" />
       <table>
-      <tr>
-      <td>User</td>
-      <td><input id="user" type='text' name='users_id' /></td>
-      </tr>
       <tr>
       <td>Court</td>
       <td><input id="name" type='text' name='name' /></td>
@@ -137,7 +133,7 @@
     </table>
 </form>
       </div>
-     
+
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
