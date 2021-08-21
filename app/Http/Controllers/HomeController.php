@@ -35,7 +35,7 @@ class HomeController extends Controller
         $booking = Booking::create(array_merge($request->all(), ['status_id' => 2]));
         $dropdown = SportsLocation::where('sport_types', $type)->get();
 
-     
+
         // Booking::create($request->all());
         // dd($type);
         $courtReferenceNo = 'ABC00'.$booking->id;
@@ -43,11 +43,11 @@ class HomeController extends Controller
             ['message' =>'successfully created '.$courtReferenceNo],
             ['resources'=> $resources],
             ['type' => $type]
-        )->with('dropdown', $dropdown); 
+        )->with('dropdown', $dropdown);
 
     }
-    
-  
+
+
 
     public function show($id){
         return;
@@ -79,9 +79,8 @@ class HomeController extends Controller
     }
 
     public function customerDashboard(){
-        $bookings = Booking::where('users_id',auth()->id())->with('sportField')->get();
+        $bookings = Booking::where('users_id', auth()->id())->with('sportField')->get();
         $sportFields = SportField::get();
-        // dd($bookings);
         return view('managebooking-customer', compact('bookings', 'sportFields'));
     }
 }

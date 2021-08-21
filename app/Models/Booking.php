@@ -20,7 +20,8 @@ class Booking extends Model
         'status_id',
         'sport_field_id',
         'start_date',
-        'end_date'
+        'end_date',
+        'users_id'
     ];
     public $timestamps = false;
 
