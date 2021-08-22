@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,44 +15,44 @@ use App\Http\Controllers\BookingController;
 */
 
 Route::get('/', function () {
-    return view('homeA');
+    return view('public.landing-page');
 });
 
 
-Route::get('/bookingstatus', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/schedule', [App\Http\Controllers\HomeController::class, 'schedule']);
 Route::post('/schedule/store', [App\Http\Controllers\HomeController::class, 'store']);
 
 
 Route::get('/badminton', [App\Http\Controllers\HomeController::class, 'badminton']);
 Route::get('/futsal', [App\Http\Controllers\HomeController::class, 'futsal']);
-Route::post('/scheduleA', [App\Http\Controllers\HomeController::class, 'scheduleA']);
+// Route::post('/scheduleA', [App\Http\Controllers\HomeController::class, 'scheduleA']);
 
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin']);
+// Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin']);
 
-Route::post('/create', [App\Http\Controllers\HomeController::class, 'create']);
+Route::resource('admin', App\Http\Controllers\AdminController::class)->middleware('role:admin');
 
-Route::get('/show/{id}', [App\Http\Controllers\HomeController::class, 'show']);
+Route::resource('user', App\Http\Controllers\UserController::class)->middleware('role:customer');
 
-Route::delete('/destroy/{id}', [App\Http\Controllers\HomeController::class, 'destory']);
+Route::resource('court', App\Http\Controllers\CourtController::class)->middleware('role:admin');
 
-// Manage Courts
+Route::get('/booking/my-booking', [App\Http\Controllers\BookingController::class, 'myBooking']);
 
-
-
-Route::resource('court', App\Http\Controllers\CourtController::class);
+Route::get('/booking/manage-booking', [App\Http\Controllers\BookingController::class,'manageBooking'])->name('manage-booking')->middleware('role:admin');
 
 Route::resource('booking', App\Http\Controllers\BookingController::class);
 
-Route::get('/managebooking', [BookingController::class,'showA']);
+// Route::get('/managebooking', [BookingController::class,'showA'])->middleware('role:admin');
 
 Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);
 
 Auth::routes();
 
-Route::get('/homeA', [App\Http\Controllers\HomeController::class, 'index'])->name('homeA');
+// Route::get('/homeA', [App\Http\Controllers\HomeController::class, 'index'])->name('homeA');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'admin'])->name('home');
+Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->middleware('role:admin');
 
-Route::get('/managebooking-customer', [App\Http\Controllers\HomeController::class,'customerDashboard']);
+// Route::get('/managebooking-customer', [App\Http\Controllers\HomeController::class,'customerDashboard'])->middleware('role:customer');
+
+// Route::get('/booking/my-booking', [App\Http\Controllers\BookingController::class,'myBooking'])->name('myBooking')->middleware('role:customer');
+
 
