@@ -21,9 +21,9 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <div class="mt-3 mb-2">
-                </div>
+                @include('admin.search-booking')
                 <br>
+                <h5 class="">List of Booking</h5>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>

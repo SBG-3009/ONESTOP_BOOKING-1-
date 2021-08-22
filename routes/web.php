@@ -40,6 +40,8 @@ Route::get('/booking/my-booking', [App\Http\Controllers\BookingController::class
 
 Route::get('/booking/manage-booking', [App\Http\Controllers\BookingController::class,'manageBooking'])->name('manage-booking')->middleware('role:admin');
 
+Route::post('/booking/search', [App\Http\Controllers\BookingController::class, 'search']);
+
 Route::resource('booking', App\Http\Controllers\BookingController::class);
 
 Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);

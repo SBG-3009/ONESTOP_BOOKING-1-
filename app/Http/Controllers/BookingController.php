@@ -122,4 +122,12 @@ class BookingController extends Controller
         $sportFields = SportField::get();
         return view('user.my-booking', compact('bookings', 'sportFields'));
     }
+
+
+    public function search(Request $request) {
+        $bookings = Booking::join('users','bookings.users_id','users.id')
+        ->where('users.name', 'like', '%'.$request->name.'%')->get();
+        $sportFields = SportField::get();
+        return view('admin.manage-booking', compact('bookings', 'sportFields'));
+    }
 }
