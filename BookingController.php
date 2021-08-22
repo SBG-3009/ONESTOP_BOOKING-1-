@@ -21,8 +21,8 @@ class BookingController extends Controller
         $sportsLocation = SportsLocation::get();
         return view('managebooking', compact('bookings', 'sportsLocation'));
     }
-    
-    
+
+
     public function update(Request $request, $id) {
         $booking = SportField::find($id);
         //dd($request);
