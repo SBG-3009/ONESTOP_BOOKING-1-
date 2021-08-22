@@ -18,16 +18,17 @@ Route::get('/', function () {
     return view('public.landing-page');
 });
 
+Route::get('/home', function () {
+    return view('public.landing-page');
+});
 
 Route::get('/schedule', [App\Http\Controllers\HomeController::class, 'schedule']);
 Route::post('/schedule/store', [App\Http\Controllers\HomeController::class, 'store']);
 
 
 Route::get('/badminton', [App\Http\Controllers\HomeController::class, 'badminton']);
-Route::get('/futsal', [App\Http\Controllers\HomeController::class, 'futsal']);
-// Route::post('/scheduleA', [App\Http\Controllers\HomeController::class, 'scheduleA']);
 
-// Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin']);
+Route::get('/futsal', [App\Http\Controllers\HomeController::class, 'futsal']);
 
 Route::resource('admin', App\Http\Controllers\AdminController::class)->middleware('role:admin');
 
@@ -41,18 +42,7 @@ Route::get('/booking/manage-booking', [App\Http\Controllers\BookingController::c
 
 Route::resource('booking', App\Http\Controllers\BookingController::class);
 
-// Route::get('/managebooking', [BookingController::class,'showA'])->middleware('role:admin');
-
 Route::get('/show/{id}', [App\Http\Controllers\BookingController::class, 'show']);
 
 Auth::routes();
-
-// Route::get('/homeA', [App\Http\Controllers\HomeController::class, 'index'])->name('homeA');
-
-Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->middleware('role:admin');
-
-// Route::get('/managebooking-customer', [App\Http\Controllers\HomeController::class,'customerDashboard'])->middleware('role:customer');
-
-// Route::get('/booking/my-booking', [App\Http\Controllers\BookingController::class,'myBooking'])->name('myBooking')->middleware('role:customer');
-
 
