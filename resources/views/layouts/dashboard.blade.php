@@ -76,7 +76,7 @@
             @elseif(Auth::user()->roles==='customer')
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="user/index">
+                    <a class="nav-link" href="/user/index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
                 </li>
@@ -91,7 +91,7 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                        <a class="nav-link" href="booking/my-booking">
+                        <a class="nav-link" href="/booking/my-booking">
                         <span>Manage My Booking</span>
                     </a>
                 </li>
