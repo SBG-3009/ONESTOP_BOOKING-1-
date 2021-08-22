@@ -107,4 +107,19 @@ class BookingController extends Controller
         $sportFields = SportField::get();
         return view('managebooking', ['message'=> 'Record Is Deleted'], compact('bookings', 'sportFields'));
     }
+
+
+    public function manageBooking(){
+        $bookings = Booking::with('sportField')->get();
+        $sportFields = SportField::get();
+        return view('admin.manage-booking', compact('bookings', 'sportFields'));
+    }
+
+
+    public function myBooking()
+    {
+        $bookings = Booking::with('sportField')->get();
+        $sportFields = SportField::get();
+        return view('user.my-booking', compact('bookings', 'sportFields'));
+    }
 }

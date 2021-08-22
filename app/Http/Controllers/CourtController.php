@@ -19,7 +19,7 @@ class CourtController extends Controller
     {
         $courts = SportField::with('sportsLocation')->get();
         $sportsLocation = SportsLocation::get();
-        return view('manageCourt', compact('courts', 'sportsLocation'));
+        return view('admin.manage-court', compact('courts', 'sportsLocation'));
     }
 
 
@@ -34,7 +34,7 @@ class CourtController extends Controller
         SportField::create($request->all());
         $courts = SportField::get();
         $sportsLocation = SportsLocation::get();
-        return view('manageCourt', ['message'=> 'Record Is Successfully Created'], compact('courts', 'sportsLocation'));
+        return view('admin.manage-court', ['message'=> 'Record Is Successfully Created'], compact('courts', 'sportsLocation'));
     }
 
     /**
@@ -55,8 +55,8 @@ class CourtController extends Controller
         $court->save();
         $courts = SportField::with('sportsLocation')->get();
         $sportsLocation = SportsLocation::get();
-   
-        return view('manageCourt', ['message'=> 'Record Is Successfully Updated '], compact('courts', 'sportsLocation'));
+
+        return view('admin.manage-court', ['message'=> 'Record Is Successfully Updated '], compact('courts', 'sportsLocation'));
     }
 
     /**
@@ -70,6 +70,6 @@ class CourtController extends Controller
         SportField::destroy($id);
         $courts = SportField::with('sportsLocation')->get();
         $sportsLocation = SportsLocation::get();
-        return view('manageCourt', ['message'=> 'Record Is Deleted'], compact('courts', 'sportsLocation'));
+        return view('admin.manage-court', ['message'=> 'Record Is Deleted'], compact('courts', 'sportsLocation'));
     }
 }

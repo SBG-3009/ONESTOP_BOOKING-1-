@@ -14,11 +14,6 @@ class HomeController extends Controller
 {
 
     function index() {
-        $booking = Booking::get();
-        return view('home');
-    }
-
-    public function homeA() {
         $type = 'Badminton';
 
         $dropdown = SportsLocation::where('sport_types', $type)->get();
@@ -27,6 +22,16 @@ class HomeController extends Controller
         ['resources'=> $resources],['type'=> 'Badminton']
         )->with('dropdown', $dropdown);
     }
+
+    // public function homeA() {
+    //     $type = 'Badminton';
+
+    //     $dropdown = SportsLocation::where('sport_types', $type)->get();
+    //     $resources = SportField::get();
+    //     return view('schedule',
+    //     ['resources'=> $resources],['type'=> 'Badminton']
+    //     )->with('dropdown', $dropdown);
+    // }
 
 
     public function store(Request $request){
@@ -47,12 +52,6 @@ class HomeController extends Controller
 
     }
 
-
-
-    public function show($id){
-        return;
-    }
-
     public function badminton() {
         $dropdown = SportsLocation::where('sport_types', 'Badminton')->get();
         $resources = SportField::where('sport_location_id', 1)->get();
@@ -65,13 +64,13 @@ class HomeController extends Controller
         return view('schedule', ['resources'=> $resources],['type'=> 'Futsal'])->with('dropdown', $dropdown);
     }
 
-    public function scheduleA(Request $request) {
-        echo $request->type;
-        $type = $request->type;
-        $dropdown = SportsLocation::where('sport_types', $type)->get();
-        $resources = SportField::where('sport_location_id', $request->id)->get();
-        return view('schedule', ['resources'=> $resources], ['type'=> $type])->with('dropdown', $dropdown);
-    }
+    // public function scheduleA(Request $request) {
+    //     echo $request->type;
+    //     $type = $request->type;
+    //     $dropdown = SportsLocation::where('sport_types', $type)->get();
+    //     $resources = SportField::where('sport_location_id', $request->id)->get();
+    //     return view('schedule', ['resources'=> $resources], ['type'=> $type])->with('dropdown', $dropdown);
+    // }
 
 
     public function admin() {
