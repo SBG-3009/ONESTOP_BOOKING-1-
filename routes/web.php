@@ -27,6 +27,9 @@ Route::get('/testb', function(){
 });
 
 Route::get('/schedule', [App\Http\Controllers\HomeController::class, 'schedule']);
+
+Route::post('/scheduleA', [App\Http\Controllers\HomeController::class, 'scheduleA']);
+
 Route::post('/schedule/store', [App\Http\Controllers\HomeController::class, 'store']);
 
 Route::get('/badminton', [App\Http\Controllers\HomeController::class, 'badminton']);

@@ -41,13 +41,13 @@
                 },
                 resources: newResources,
                 events: [
-                {   
+                {
                     resourceId:'28',
                     start: '2021-08-22T12:00:00+08:00',
                     end: '2021-08-22T13:00:00+08:00',
                     display: 'background', title:'Booked',
                 },
-                {   
+                {
                     resourceId:'28',
                     start: '2021-08-22T14:00:00+08:00',
                     end: '2021-08-22T16:00:00+08:00',
@@ -57,7 +57,7 @@
                 dateClick: function(info) {
                     alert('selected ' + info.dateStr + ' on resource ' + info.resource.id + 'name' +
                         info.resource.title);
-                     
+
                 },
                 resources: newResources,
                 dateClick: function(info) {
@@ -85,7 +85,7 @@
 </head>
 
 <body>
-                
+
 <a class="btn btn-info" href="{{ route('logout') }}"
 onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
@@ -95,13 +95,13 @@ onclick="event.preventDefault();
 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
     @csrf
 </form>
-                            
+
     @if (isset($message))
         <div class="alert alert-primary" role="alert">
             {{ $message }}
         </div>
     @endif
-    <form action="/testA" method="post">
+    <form action="/scheduleA" method="post">
         <br>
         <p><input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
             <select name="id" class="form-select" aria-label="Default select example">
