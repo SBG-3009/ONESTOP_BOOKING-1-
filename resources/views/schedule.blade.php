@@ -12,9 +12,8 @@
 
     <style>
         body {
-            background: #eee;
+            background: linear-gradient(to bottom, #F1F2B5 0%, #135058 100%);
         }
-
     </style>
     <script>
         <?php
@@ -33,7 +32,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-
                 selectable: true,
                 initialView: 'resourceTimelineWeek',
                 headerToolbar: {
@@ -41,14 +39,26 @@
                     center: 'title',
                     right: 'resourceTimelineWeek,timeGridDay'
                 },
-
-
                 resources: newResources,
+                events: [
+                {   
+                    resourceId:'28',
+                    start: '2021-08-22T12:00:00+08:00',
+                    end: '2021-08-22T13:00:00+08:00',
+                    display: 'background', title:'Booked',
+                },
+                {   
+                    resourceId:'28',
+                    start: '2021-08-22T14:00:00+08:00',
+                    end: '2021-08-22T16:00:00+08:00',
+                    display: 'background', title:'Booked',
+                }
+            ],
                 dateClick: function(info) {
                     alert('selected ' + info.dateStr + ' on resource ' + info.resource.id + 'name' +
                         info.resource.title);
+                     
                 },
-
                 resources: newResources,
                 dateClick: function(info) {
                     alert('clicked ' + info.dateStr + ' on resource ' + info.resource.id + 'name' + info
@@ -69,19 +79,29 @@
                         .resource.id + 'name' + info.resource.title);
                 }
             });
-
             calendar.render();
         });
     </script>
 </head>
 
 <body>
+                
+<a class="btn btn-info" href="{{ route('logout') }}"
+onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+ {{ __('Logout') }}
+</a>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
+                            
     @if (isset($message))
         <div class="alert alert-primary" role="alert">
             {{ $message }}
         </div>
     @endif
-    <form action="/scheduleA" method="post">
+    <form action="/testA" method="post">
         <br>
         <p><input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
             <select name="id" class="form-select" aria-label="Default select example">
@@ -112,7 +132,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                        <input type="hidden" name='users_id' value="<?php echo Auth::user()->id ?>" />
+                        <input type="hidden" name='users_id' value="<$row->id"/>
                         <table>
                             <tr>
                                 <td>Court</td>
@@ -136,7 +156,7 @@
                                 <td><input id="endTime" type='text' name='end_date' /></td>
                             </tr>
                             <td colspan='2'>
-                                <input type='submit' value="Add student" />
+                                <input type='submit' value="Book Now"/>
                             </td>
                             </tr>
                         </table>

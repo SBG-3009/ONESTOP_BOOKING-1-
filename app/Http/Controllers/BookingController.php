@@ -118,7 +118,7 @@ class BookingController extends Controller
 
     public function myBooking()
     {
-        $bookings = Booking::with('sportField')->get();
+        $bookings = Booking::where('users_id', auth()->id())->with('sportField')->get();
         $sportFields = SportField::get();
         return view('user.my-booking', compact('bookings', 'sportFields'));
     }

@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use Stripe\Stripe;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *
@@ -22,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        //
-    }
+   {
+    Stripe::setApiKey(env('STRIPE_PRIVATE_KEY'));
+   }
 }

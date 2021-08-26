@@ -49,7 +49,7 @@ class LoginController extends Controller
                 break;
 
             case 'customer':
-                return '/user';
+                return '/homeA';
                 break;
 
             default:

@@ -54,8 +54,12 @@ class HomeController extends Controller
 
     public function badminton() {
         $dropdown = SportsLocation::where('sport_types', 'Badminton')->get();
-        $resources = SportField::where('sport_location_id', 1)->get();
-        return view('schedule', ['resources'=> $resources],['type'=> 'Badminton'])->with('dropdown', $dropdown);
+        $resources = SportField::where('sport_location_id', 1)->get(); 
+        $from = date('Y-m-d');
+        $to = date('Y-m-d',strtotime('+7 day',strtotime($from)));
+        $events = Booking::whereBetween('start_date',[$from,$to])->get();
+        //return $events;
+        return view('schedule', ['events'=> $events],['resources'=> $resources],['type'=> 'Badminton'])->with('dropdown', $dropdown);
     }
 
     public function futsal() {
@@ -64,13 +68,13 @@ class HomeController extends Controller
         return view('schedule', ['resources'=> $resources],['type'=> 'Futsal'])->with('dropdown', $dropdown);
     }
 
-    // public function scheduleA(Request $request) {
-    //     echo $request->type;
-    //     $type = $request->type;
-    //     $dropdown = SportsLocation::where('sport_types', $type)->get();
-    //     $resources = SportField::where('sport_location_id', $request->id)->get();
-    //     return view('schedule', ['resources'=> $resources], ['type'=> $type])->with('dropdown', $dropdown);
-    // }
+    public function testA(Request $request) {
+    //echo $request->type;
+    $type = $request->type;
+    $dropdown = SportsLocation::where('sport_types', $type)->get();
+    $resources = SportField::where('sport_location_id', $request->id)->get();
+    return view('schedule', ['resources'=> $resources], ['type'=> $type])->with('dropdown', $dropdown);
+    }
 
 
     public function admin() {
