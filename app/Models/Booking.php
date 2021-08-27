@@ -21,7 +21,8 @@ class Booking extends Model
         'sport_field_id',
         'start_date',
         'end_date',
-        'users_id'
+        'users_id',
+        'total'
     ];
     public $timestamps = false;
 
@@ -30,6 +31,9 @@ class Booking extends Model
     }
     public function getUser(){
         return $this->hasOne(User::class, 'id', 'users_id');
+    }
+    public function myBooking(){
+        return $this->hasOne(Booking::class, 'id', 'total');
     }
 }
 

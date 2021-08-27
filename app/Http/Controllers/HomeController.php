@@ -44,11 +44,13 @@ class HomeController extends Controller
         // Booking::create($request->all());
         // dd($type);
         $courtReferenceNo = 'ABC00'.$booking->id;
-        return view('schedule',
-            ['message' =>'successfully created '.$courtReferenceNo],
-            ['resources'=> $resources],
-            ['type' => $type]
-        )->with('dropdown', $dropdown);
+        // return view('schedule',
+        //     ['message' =>'successfully created '.$courtReferenceNo],
+        //     ['resources'=> $resources],
+        //     ['type' => $type]
+        // )->with('dropdown', $dropdown);
+
+        return redirect('/booking/my-booking');
 
     }
 
@@ -59,8 +61,12 @@ class HomeController extends Controller
         $to = date('Y-m-d',strtotime('+7 day',strtotime($from)));
         $events = Booking::whereBetween('start_date',[$from,$to])->get();
         //return $events;
-        return view('schedule', ['events'=> $events],['resources'=> $resources],['type'=> 'Badminton'])->with('dropdown', $dropdown);
+        //return view('schedule', ['events'=> $events],['resources'=> $resources],['type'=> 'Badminton'])->with('dropdown', $dropdown);
+        $type = 'Badminton';
+        // return view('schedule', ['events'=> $events],['resources'=> $resources],['type'=> 'Badminton'])->with('dropdown', $dropdown);
+        return view('schedule', compact('events', 'resources', 'dropdown', 'type'));
     }
+    
 
     public function futsal() {
         $dropdown = SportsLocation::where('sport_types', 'Futsal')->get();
@@ -69,13 +75,12 @@ class HomeController extends Controller
     }
 
     public function scheduleA(Request $request) {
-    //echo $request->type;
-    $type = $request->type;
-    $dropdown = SportsLocation::where('sport_types', $type)->get();
-    $resources = SportField::where('sport_location_id', $request->id)->get();
-    return view('schedule', ['resources'=> $resources], ['type'=> $type])->with('dropdown', $dropdown);
+        //echo $request->type;
+        $type = $request->type;
+        $dropdown = SportsLocation::where('sport_types', $type)->get();
+        $resources = SportField::where('sport_location_id', $request->id)->get();
+        return view('schedule', ['resources'=> $resources], ['type'=> $type])->with('dropdown', $dropdown);
     }
-
 
     public function admin() {
         return view('admin');

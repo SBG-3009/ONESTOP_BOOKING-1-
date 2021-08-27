@@ -23,5 +23,5 @@ class SportField extends Model
     public function sportsLocation(){
         return $this->hasOne(SportsLocation::class, 'id', 'sport_location_id');
     }
-
+    
 }

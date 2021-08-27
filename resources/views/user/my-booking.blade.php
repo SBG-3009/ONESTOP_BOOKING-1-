@@ -13,6 +13,12 @@
 @section('content')
 <div class="col-xl-12 col-lg-12">
     <div class="card shadow mb-4">
+
+    <style>
+        .th-action{
+            width: 100px;
+        }
+        </style>
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -44,7 +50,7 @@
                                     <td>{{$booking->id}}</td>
                                     <td>{{$booking->sportField->name}}</td>
                                     <td>{{$booking->sportField->sportsLocation->name}}</td>
-                                    <td>{{$booking->sportField->price}}</td>
+                                    <td>{{$booking->total}}</td>
                                     <td>{{$booking->start_date}}</td>
                                     <td>{{$booking->end_date}}</td>
                                     <td>{{$booking->sportField->sportsLocation->sport_types}}</td>
@@ -54,9 +60,10 @@
                                         $endTime= date('c',strtotime($booking->end_time));
                                         $endTime = substr($endTime, 0, -9);
                                     ?>
-                                <td>
+                               
 
-                                </td>
+                                <td><a href="{{ url('stripe-payment')}}" class="btn btn-info">Pay Now</a></td>
+                                
                             </tr>
                         @endforeach
                     </tbody>
@@ -115,6 +122,7 @@
                               <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type = "text" id="updateId" name="id">
+                            {{Auth::user()->id}}
                         </div>
 
                         <div class="form-group">
